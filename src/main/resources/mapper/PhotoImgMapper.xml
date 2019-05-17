@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blogs.dao.PhotoImgMapper">
+  <resultMap id="BaseResultMap" type="com.blogs.bean.PhotoImg">
+    <id column="photo_img_id" jdbcType="INTEGER" property="photoImgId" />
+    <result column="img_name" jdbcType="VARCHAR" property="imgName" />
+    <result column="photo_id" jdbcType="INTEGER" property="photoId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    photo_img_id, img_name, photo_id
+  </sql>
+  <select id="selectByExample" parameterType="com.blogs.bean.PhotoImgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from photo_img
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from photo_img
+    where photo_img_id = #{photoImgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from photo_img
+    where photo_img_id = #{photoImgId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.blogs.bean.PhotoImgExample">
+    delete from photo_img
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.blogs.bean.PhotoImg">
+    insert into photo_img (photo_img_id, img_name, photo_id
+      )
+    values (#{photoImgId,jdbcType=INTEGER}, #{imgName,jdbcType=VARCHAR}, #{photoId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blogs.bean.PhotoImg">
+    insert into photo_img
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="photoImgId != null">
+        photo_img_id,
+      </if>
+      <if test="imgName != null">
+        img_name,
+      </if>
+      <if test="photoId != null">
+        photo_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="photoImgId != null">
+        #{photoImgId,jdbcType=INTEGER},
+      </if>
+      <if test="imgName != null">
+        #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="photoId != null">
+        #{photoId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.blogs.bean.PhotoImgExample" resultType="java.lang.Long">
+    select count(*) from photo_img
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update photo_img
+    <set>
+      <if test="record.photoImgId != null">
+        photo_img_id = #{record.photoImgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgName != null">
+        img_name = #{record.imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoId != null">
+        photo_id = #{record.photoId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update photo_img
+    set photo_img_id = #{record.photoImgId,jdbcType=INTEGER},
+      img_name = #{record.imgName,jdbcType=VARCHAR},
+      photo_id = #{record.photoId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blogs.bean.PhotoImg">
+    update photo_img
+    <set>
+      <if test="imgName != null">
+        img_name = #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="photoId != null">
+        photo_id = #{photoId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where photo_img_id = #{photoImgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blogs.bean.PhotoImg">
+    update photo_img
+    set img_name = #{imgName,jdbcType=VARCHAR},
+      photo_id = #{photoId,jdbcType=INTEGER}
+    where photo_img_id = #{photoImgId,jdbcType=INTEGER}
+  </update>
+</mapper>

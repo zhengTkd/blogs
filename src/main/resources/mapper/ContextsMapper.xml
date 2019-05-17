@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blogs.dao.ContextsMapper">
+  <resultMap id="BaseResultMap" type="com.blogs.bean.Contexts">
+    <id column="contexts_id" jdbcType="INTEGER" property="contextsId" />
+    <result column="contexts_title" jdbcType="VARCHAR" property="contextsTitle" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="contexts_class_id" jdbcType="INTEGER" property="contextsClassId" />
+    <result column="contextsUpdate" jdbcType="TIMESTAMP" property="contextsupdate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blogs.bean.Contexts">
+    <result column="contextsMain" jdbcType="LONGVARCHAR" property="contextsmain" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    contexts_id, contexts_title, user_id, contexts_class_id, contextsUpdate
+  </sql>
+  <sql id="Blob_Column_List">
+    contextsMain
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.blogs.bean.ContextsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from contexts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.blogs.bean.ContextsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contexts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from contexts
+    where contexts_id = #{contextsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from contexts
+    where contexts_id = #{contextsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.blogs.bean.ContextsExample">
+    delete from contexts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.blogs.bean.Contexts">
+    insert into contexts (contexts_id, contexts_title, user_id, 
+      contexts_class_id, contextsUpdate, contextsMain
+      )
+    values (#{contextsId,jdbcType=INTEGER}, #{contextsTitle,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{contextsClassId,jdbcType=INTEGER}, #{contextsupdate,jdbcType=TIMESTAMP}, #{contextsmain,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blogs.bean.Contexts">
+    insert into contexts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contextsId != null">
+        contexts_id,
+      </if>
+      <if test="contextsTitle != null">
+        contexts_title,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="contextsClassId != null">
+        contexts_class_id,
+      </if>
+      <if test="contextsupdate != null">
+        contextsUpdate,
+      </if>
+      <if test="contextsmain != null">
+        contextsMain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contextsId != null">
+        #{contextsId,jdbcType=INTEGER},
+      </if>
+      <if test="contextsTitle != null">
+        #{contextsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="contextsClassId != null">
+        #{contextsClassId,jdbcType=INTEGER},
+      </if>
+      <if test="contextsupdate != null">
+        #{contextsupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contextsmain != null">
+        #{contextsmain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.blogs.bean.ContextsExample" resultType="java.lang.Long">
+    select count(*) from contexts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update contexts
+    <set>
+      <if test="record.contextsId != null">
+        contexts_id = #{record.contextsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contextsTitle != null">
+        contexts_title = #{record.contextsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contextsClassId != null">
+        contexts_class_id = #{record.contextsClassId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contextsupdate != null">
+        contextsUpdate = #{record.contextsupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.contextsmain != null">
+        contextsMain = #{record.contextsmain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update contexts
+    set contexts_id = #{record.contextsId,jdbcType=INTEGER},
+      contexts_title = #{record.contextsTitle,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      contexts_class_id = #{record.contextsClassId,jdbcType=INTEGER},
+      contextsUpdate = #{record.contextsupdate,jdbcType=TIMESTAMP},
+      contextsMain = #{record.contextsmain,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update contexts
+    set contexts_id = #{record.contextsId,jdbcType=INTEGER},
+      contexts_title = #{record.contextsTitle,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      contexts_class_id = #{record.contextsClassId,jdbcType=INTEGER},
+      contextsUpdate = #{record.contextsupdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blogs.bean.Contexts">
+    update contexts
+    <set>
+      <if test="contextsTitle != null">
+        contexts_title = #{contextsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="contextsClassId != null">
+        contexts_class_id = #{contextsClassId,jdbcType=INTEGER},
+      </if>
+      <if test="contextsupdate != null">
+        contextsUpdate = #{contextsupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contextsmain != null">
+        contextsMain = #{contextsmain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where contexts_id = #{contextsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blogs.bean.Contexts">
+    update contexts
+    set contexts_title = #{contextsTitle,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      contexts_class_id = #{contextsClassId,jdbcType=INTEGER},
+      contextsUpdate = #{contextsupdate,jdbcType=TIMESTAMP},
+      contextsMain = #{contextsmain,jdbcType=LONGVARCHAR}
+    where contexts_id = #{contextsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blogs.bean.Contexts">
+    update contexts
+    set contexts_title = #{contextsTitle,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      contexts_class_id = #{contextsClassId,jdbcType=INTEGER},
+      contextsUpdate = #{contextsupdate,jdbcType=TIMESTAMP}
+    where contexts_id = #{contextsId,jdbcType=INTEGER}
+  </update>
+</mapper>
