@@ -1,5 +1,11 @@
 package com.blogs.controller;
 
-public interface PageController {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+
+public interface PageController {
+	
+	
+	
 }
