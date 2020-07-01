@@ -13,7 +13,7 @@
 		<jstl.version>1.2</jstl.version>
 		<servlet.version>4.0.1</servlet.version>
 		<druid.version>1.1.10</druid.version>
-		<mysql.version>5.1.38</mysql.version>
+		<mysql.version>8.0.16</mysql.version>
 		<mybate.version>3.4.6</mybate.version>
 		<log4j.version>1.2.17</log4j.version>
 		<ehcache.version>2.4.3</ehcache.version>
